@@ -12,8 +12,10 @@ pw
 
 ### 0.1 Admin login
 
-user
-: admin
+<http://192.168.0.1>
+
+~~user~~
+~~: admin~~
 
 pw
 : 7ellowsTon3
@@ -158,5 +160,76 @@ Disable:
 
 Jeg tror det var det... med docker installation
 
+## 2.2 Chirpstack docker-compose 
 
+
+
+Der er en "officiel" demo af chirpstack med docker-compose, på github. 
+
+<https://www.chirpstack.io/project/guides/docker-compose/>
+<https://github.com/chirpstack/chirpstack-docker>
+
+Den henter jeg... så nu ligger den direkte under `pi`'s home mappe (det skal måske ikke være sådan...)
+
+    git clone https://github.com/brocaar/chirpstack-docker.git
+    cd chirpstack-docker
+
+Start
+
+    docker compose up
+
+__Bemærk__: uden bindestreg mellem `docker` og `compose`. Nyt i docker.
+
+Man kunne og starte som deamon med `-d`
+
+Den svarer nu på `chirp.local:8080`
+
+user
+: admin
+
+pw
+: admin
+
+Jeg importerer også lige lorawan devices fra TheThingsNetwork.
+
+    make import-lorawan-devices
+
+## Forbind kerlink gateway til chirpstack
+
+Web http://klk-wifc-09163C/
+
+Vi laver en ssh forbindelse til kerlink gateway'en (Virnet iFemtoCell).
+
+Se: https://wikikerlink.fr/wirnet-productline/doku.php?id=wiki:ifemtocell:connect_ifemto
+
+user
+: root
+
+pw
+: pdmk-$serialno,
+
+hvor $serialno er de sidste 6 cifre i board-id. Her `09163C`
+
+Den konkrete gateway har boardid `3909163C` hostnavnet `klk-wifc-09163C`, så passworded er `pdmk-09163C`
+
+    ssh root@klk-wifc-09163C
+
+password: `pdmk-09163C`
+
+### Rediger conf
+
+    vim /etc/chirpstack-mqtt-forwarder/chirpstack-mqtt-forwarder.toml
+
+find under `[mqtt]`, `server`
+og set
+```conf
+#  server="tcp://127.0.0.1:1883"
+  server="tcp://192.168.0.199:1883"
+```
+
+Nu sender Kerlink gatewayen, pakker til ChirpStack'en, via mqtt.
+
+Se gerne log (på Kerlink gateway'en) med:
+
+    ail -f -n 100 /var/log/messages |grep chirpstack-mqtt-forwarder
 

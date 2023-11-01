@@ -194,7 +194,7 @@ Jeg importerer også lige lorawan devices fra TheThingsNetwork.
 
     make import-lorawan-devices
 
-## Forbind kerlink gateway til chirpstack
+## 2.3 Forbind kerlink gateway til chirpstack
 
 Web http://klk-wifc-09163C/
 
@@ -216,7 +216,7 @@ Den konkrete gateway har boardid `3909163C` hostnavnet `klk-wifc-09163C`, så pa
 
 password: `pdmk-09163C`
 
-### Rediger conf
+### 2.3.1 Rediger conf
 
     vim /etc/chirpstack-mqtt-forwarder/chirpstack-mqtt-forwarder.toml
 
@@ -231,5 +231,5 @@ Nu sender Kerlink gatewayen, pakker til ChirpStack'en, via mqtt.
 
 Se gerne log (på Kerlink gateway'en) med:
 
-    ail -f -n 100 /var/log/messages |grep chirpstack-mqtt-forwarder
+    tail -f -n 100 /var/log/messages |grep chirpstack-mqtt-forwarder
 

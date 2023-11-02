@@ -180,8 +180,6 @@ Start
 
 __Bemærk__: uden bindestreg mellem `docker` og `compose`. Nyt i docker.
 
-Man kunne og starte som deamon med `-d`
-
 Den svarer nu på `chirp.local:8080`
 
 user
@@ -189,6 +187,23 @@ user
 
 pw
 : admin
+
+
+### 2.2.1 Start som daemon
+
+Når docker compose starter med `-d`, kører docker stack'en i baggrunden,  
+
+    docker compose up -d
+
+og kan stoppes med
+
+    docker compose down
+
+(Husk at du skal have `cd`'et til den mappe hvor `docker-compose.yml`-filen ligger. Pt er den i `/home/pi/chirpstack-docker`.)
+
+__Note:__ Når Chirpstack'en startes som daemon (med `-d`), startes den automatisk op igen, når hele RasPi'en starter op igen.
+
+### 2.2.2 Importer devices
 
 Jeg importerer også lige lorawan devices fra TheThingsNetwork.
 

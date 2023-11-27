@@ -188,6 +188,14 @@ user
 pw
 : admin
 
+### 2.2.0 Fork på github
+
+...
+
+#### 2.2.0.1 Brugerprofil
+
+    git config --global user.email "smag@tec.dk"
+    git config --global user.name "Søren Magnusson"
 
 ### 2.2.1 Start som daemon
 
